@@ -337,21 +337,21 @@
             <stop offset="100%" style="stop-color:#0d2035"/>
           </linearGradient>
           <style>
-            @keyframes gyreRotate {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(360deg); }
+            @keyframes sonarPulse {
+              0% { r: 10; opacity: 0.9; }
+              100% { r: 300; opacity: 0; }
             }
-            .gyre { transform-origin: 400px 250px; animation: gyreRotate 40s linear infinite; }
+            .sp { animation: sonarPulse 4s ease-out infinite; }
+            .sp:nth-child(1) { animation-delay: 0s; }
+            .sp:nth-child(2) { animation-delay: 1.3s; }
+            .sp:nth-child(3) { animation-delay: 2.6s; }
           </style>
         </defs>
         <rect width="800" height="600" fill="url(#g1)"/>
-        <g class="gyre">
-          <path d="M400,250 C400,150 490,100 540,130 C610,170 620,270 570,340 C510,420 390,435 300,385 C185,320 175,180 235,105 C310,10 460,-10 560,45" fill="none" stroke="rgba(122,184,204,0.2)" stroke-width="1.5"/>
-          <path d="M400,250 C400,175 468,135 505,158 C558,192 564,272 526,325 C478,390 390,400 325,362 C240,312 233,205 282,145 C342,68 450,52 510,88" fill="none" stroke="rgba(122,184,204,0.18)" stroke-width="1"/>
-          <path d="M400,250 C400,198 450,168 476,184 C514,208 518,270 492,308 C458,356 392,362 348,336 C292,300 288,228 322,182 C364,124 448,112 484,138" fill="none" stroke="rgba(122,184,204,0.16)" stroke-width="1"/>
-          <path d="M400,250 C400,220 432,203 448,214 C470,230 473,266 454,290 C430,320 394,324 368,306 C334,280 332,234 354,204 C382,164 436,156 462,174" fill="none" stroke="rgba(122,184,204,0.22)" stroke-width="1"/>
-          <circle cx="400" cy="250" r="7" fill="rgba(122,184,204,0.4)"/>
-        </g>
+        <circle class="sp" cx="400" cy="240" r="10" fill="none" stroke="rgba(122,184,204,0.7)" stroke-width="1.5"/>
+        <circle class="sp" cx="400" cy="240" r="10" fill="none" stroke="rgba(122,184,204,0.7)" stroke-width="1.5"/>
+        <circle class="sp" cx="400" cy="240" r="10" fill="none" stroke="rgba(122,184,204,0.7)" stroke-width="1.5"/>
+        <circle cx="400" cy="240" r="6" fill="rgba(122,184,204,0.5)"/>
         <g style="animation: waveMove 8s linear infinite">
           <path d="M0 380 Q100 350 200 380 Q300 410 400 380 Q500 350 600 380 Q700 410 800 380 Q900 350 1000 380 Q1100 410 1200 380 Q1300 350 1400 380 Q1500 410 1600 380 V600 H0 Z" fill="rgba(122,184,204,0.18)"/>
           <path d="M0 420 Q80 390 160 420 Q240 450 320 420 Q400 390 480 420 Q560 450 640 420 Q720 390 800 420 Q880 450 960 420 Q1040 390 1120 420 Q1200 450 1280 420 Q1360 390 1440 420 Q1520 450 1600 420 V600 H0 Z" fill="rgba(122,184,204,0.14)"/>

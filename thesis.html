@@ -1,152 +1,322 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Master Thesis — Syed Danish Ali</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Thesis — Syed Danish Ali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f0ece3;
+    --ocean: #1a3a52;
+    --glacier: #7ab8cc;
+    --warm: #c8773a;
+    --muted: #7a7468;
+    --line: rgba(13,13,13,0.12);
+    --red: #ca0020;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; overflow-x: hidden; cursor: none; }
 
-  <!-- Fonts & shared styles -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--warm); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--warm); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: 0.6; transition: width 0.2s, height 0.2s; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; border-bottom: 1px solid var(--line); background: rgba(240,236,227,0.88); backdrop-filter: blur(12px); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.2em; color: var(--ocean); text-decoration: none; }
+  .nav-back { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--ocean); }
+  .nav-cv a { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ocean); text-decoration: none; border: 1px solid var(--ocean); padding: 0.45rem 1rem; transition: background 0.25s, color 0.25s; }
+  .nav-cv a:hover { background: var(--ocean); color: var(--paper); }
+
+  /* PAGE HEADER */
+  .page-hero {
+    min-height: 42vh;
+    background: var(--ocean);
+    display: flex;
+    align-items: flex-end;
+    padding: 0 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 7rem;
+  }
+  .page-hero-bg { position: absolute; inset: 0; opacity: 0.07; background-image: linear-gradient(rgba(122,184,204,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(122,184,204,0.5) 1px, transparent 1px); background-size: 60px 60px; }
+  .page-hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .page-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--warm); margin-bottom: 1rem; }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,6vw,5.5rem); letter-spacing: 0.06em; color: var(--paper); line-height: 1; }
+  .page-sub { font-size: 1.2rem; font-style: italic; font-weight: 300; color: rgba(240,236,227,0.6); margin-top: 1rem; max-width: 60ch; line-height: 1.6; }
+
+  /* CONTENT */
+  .content-wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; }
+
+  /* META CARD */
+  .meta-card { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 5rem; }
+  .meta-item { background: var(--paper); padding: 1.8rem 2rem; }
+  .meta-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .meta-val { font-size: 1.05rem; color: var(--ocean); line-height: 1.5; }
+  .meta-val a { color: var(--ocean); }
+
+  /* SECTION BLOCKS */
+  .thesis-section { margin-bottom: 4rem; }
+  .ts-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 2.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .ts-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--warm); letter-spacing: 0.2em; }
+  .ts-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.06em; color: var(--ocean); }
+
+  /* Aim & Hypothesis */
+  .aim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .aim-box { padding: 2.5rem; border: 1px solid var(--line); position: relative; }
+  .aim-box-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem; }
+  .aim-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .aim-box li { font-size: 1.1rem; line-height: 1.7; font-weight: 300; padding-left: 1.5rem; position: relative; }
+  .aim-box li::before { content: '—'; position: absolute; left: 0; color: var(--glacier); }
+  .hypothesis-box { padding: 2.5rem; background: var(--ocean); color: var(--paper); grid-column: 1 / -1; position: relative; overflow: hidden; }
+  .hypothesis-box::after { content: 'H₀'; position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 8rem; color: rgba(122,184,204,0.1); pointer-events: none; line-height: 1; }
+  .hypothesis-box .aim-box-label { color: var(--glacier); }
+  .hypothesis-text { font-size: 1.35rem; font-style: italic; font-weight: 300; line-height: 1.65; position: relative; z-index: 1; max-width: 70ch; }
+
+  /* Figure block */
+  .figure-block { margin: 3rem 0; }
+  .figure-block img { width: 100%; display: block; filter: sepia(0.1) contrast(1.05); border: 1px solid var(--line); }
+  .figure-caption { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.7; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .figure-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm); margin-bottom: 0.8rem; }
+
+  /* Methods */
+  .methods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .method-part { padding: 2.5rem; border: 1px solid var(--line); }
+  .method-part-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm); margin-bottom: 0.5rem; }
+  .method-part h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--ocean); margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+  .method-intro { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .method-part ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .method-part li { font-size: 1rem; line-height: 1.65; font-weight: 300; padding-left: 1.5rem; position: relative; }
+  .method-part li::before { content: '›'; position: absolute; left: 0; color: var(--glacier); font-size: 1.1rem; }
+  .method-part code { font-family: 'DM Mono', monospace; font-size: 0.78rem; background: rgba(26,58,82,0.08); padding: 0.15rem 0.4rem; color: var(--ocean); }
+
+  /* Results */
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .result-part { padding: 2.5rem; border: 1px solid var(--line); }
+  .result-part.highlight { background: rgba(26,58,82,0.04); border-color: var(--glacier); }
+  .result-part-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm); margin-bottom: 0.5rem; }
+  .result-part h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--ocean); margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+  .result-part ul { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .result-part li { font-size: 1rem; line-height: 1.65; font-weight: 300; padding-left: 1.5rem; position: relative; }
+  .result-part li::before { content: '–'; position: absolute; left: 0; color: var(--glacier); }
+  .finding-callout { background: var(--red); color: var(--paper); padding: 1.2rem 1.5rem; font-size: 0.95rem; font-weight: 600; font-style: italic; line-height: 1.5; letter-spacing: 0.01em; }
+
+  /* Downloads */
+  .download-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .dl-item { background: var(--paper); padding: 2.5rem 2rem; text-decoration: none; display: flex; flex-direction: column; gap: 0.8rem; transition: background 0.2s; position: relative; overflow: hidden; }
+  .dl-item::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--warm); transform: scaleX(0); transition: transform 0.3s; }
+  .dl-item:hover { background: #fff; }
+  .dl-item:hover::before { transform: scaleX(1); }
+  .dl-icon { font-size: 1.6rem; }
+  .dl-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--warm); }
+  .dl-title { font-size: 1.1rem; color: var(--ocean); line-height: 1.4; }
+  .dl-arrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-top: auto; }
+
+  footer { background: var(--ink); border-top: 1px solid rgba(240,236,227,0.08); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(240,236,227,0.3); text-transform: uppercase; }
+  footer a { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(240,236,227,0.3); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  footer a:hover { color: rgba(240,236,227,0.8); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width:900px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-hero { padding: 7rem 1.5rem 3rem; }
+    .content-wrap { padding: 3rem 1.5rem; }
+    .meta-card, .aim-grid, .methods-grid, .results-grid, .download-grid { grid-template-columns: 1fr; }
+    .hypothesis-box { grid-column: 1; }
+  }
+</style>
 </head>
-
 <body>
-  <main class="container">
 
-    <!-- === HEADER SECTION === -->
-    <section>
-      <a href="index.html" class="btn ghost">← Back to Home</a>
-      <h1 style="color: #2563EB;">Master Thesis</h1>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-      <div class="card">
-        <h2>"Detection and Explanation of Regime Shifts in the Climatic Controls of Norwegian Glaciers"</h2>
-        <p><strong>Institution:</strong> University of Glasgow, School of Geographical and Earth Sciences</p>
-        <p><strong>Supervisor:</strong> Dr. rer. nat. habil. Sebastian G. Mutz</p>
-        <p><strong>Research Cluster:</strong> <a href="https://mutz.science" target="_blank" rel="noreferrer"> Climate Dynamics Lab</a></p>
-    
-      </div>
-    </section>
+<nav>
+  <a href="index.html" class="nav-logo">SDA</a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+  <div class="nav-cv"><a href="https://danish1830.github.io/Files/Danish_CV_PhD.pdf" target="_blank">↓ Download CV</a></div>
+</nav>
 
-    <!-- === AIM === -->
-    <section>
-      <div class="card">
-        <h2>Aim:</h2>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content">
+    <p class="page-tag">Master's Thesis · University of Glasgow</p>
+    <h1 class="page-title">Thesis</h1>
+    <p class="page-sub">"Detection and Explanation of Regime Shifts in the Climatic Controls of Norwegian Glaciers"</p>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- META -->
+  <div class="meta-card reveal">
+    <div class="meta-item"><p class="meta-label">Institution</p><p class="meta-val">University of Glasgow<br>School of Geographical & Earth Sciences</p></div>
+    <div class="meta-item"><p class="meta-label">Supervisor</p><p class="meta-val">Dr. rer. nat. habil.<br>Sebastian G. Mutz</p></div>
+    <div class="meta-item"><p class="meta-label">Research Cluster</p><p class="meta-val"><a href="https://mutz.science" target="_blank">Climate Dynamics Lab ↗</a></p></div>
+  </div>
+
+  <!-- AIM & HYPOTHESIS -->
+  <div class="thesis-section reveal">
+    <div class="ts-header"><span class="ts-num">01</span><h2 class="ts-title">Aim & Hypothesis</h2></div>
+    <div class="aim-grid">
+      <div class="aim-box">
+        <p class="aim-box-label">Research Aims</p>
         <ul>
-            <li> Detect & explain regime shifts in glacier–climate relationships (pre-2000 vs post-2000). </li>
-            <li> Develop an empirical-statistical model framework for glacier mass balance. </li>
+          <li>Detect & explain regime shifts in glacier–climate relationships (pre-2000 vs post-2000).</li>
+          <li>Develop an empirical-statistical model framework for glacier mass balance.</li>
         </ul>
       </div>
-    </section>
-
-    <!-- === Hypothesis === -->
-    <section>
-      <div class="card">
-        <h2>Hypothesis:</h2>
-        <p>"The turn of the century marks the transition to a new glacier regime, characterized by a change in the climatic controls on annual mass balances.</p>
-      </div>
-    </section>
-
-    <section>
-    <div class="card">
-        <h2>Figure: Drastic decrease in Mass balance post-2000</h2>
-        <img src="Images/Cumulative_Ba_Time_Series.png" class="img-card">
-        <p><em> Cumulative Ba (m w.e.) for 11 Norwegian glaciers from 1950 to 2020. The dashed vertical line
-        at the year 2000 indicates a marked acceleration in cumulative mass loss for most glaciers after 2000.
-        This shows a transition toward increasingly negative mass balance regimes for all 11 glaciers in the
-        21st century.</em></p>
-    </div>
-    </section>
-
-    <!-- === METHODS === -->
-    <section>
-      <div class="card">
-        <h2>Methods:</h2>
-        <p> Data sources: ERA5 reanalysis (ECMWF), CMIP6 projections, and glacier mass-balance observations (NVE: Norwegian Water Resources and Energy Directorate).</p>
-
-        <p> Part A:
-            <ul>
-                <li>Exploratory data analysis of glacier mass-balance time series (1950–2023).</li>
-                <li>Empirical Orthogonal Function (EOF) analysis to identify dominant modes of variability (e.g., NAO, EA, SCAN).</li>
-                <li>Detection of regime shifts using correlation testing and comparing pre-2000 & post-2000 periods.</li>
-            </ul>
-        </p>
-        <p>
-            Part B:
-            <ul>
-                <li>Predictor selection followed by training and testing different models with cross-validation.</li>
-                <li>Empirical-Statistical Downscaling via a <code>pyESD</code> based ML framework with 6 regressor (ARD, RidgeCV, RandomForest, Bagging, Stacking) & 3 selector (Recursive, Tree-Based, Sequential) techniques.</li>
-                <li>Model evaluation using cross-validation and performance metrics (e.g., RMSE, R²).</li>
-            </ul>
-        </p>
-        
-      </div>
-    </section>
-
-    <section>
-    <div class="card">
-        <h2>Figure: Schematic of the modelling routine</h2>
-        <img src="Images/modelling_routine_schematic.png" class="img-card">
-        <p><em> Predictors are constructed from ERA5 datasets to generate
-        Empirical-statistical models & their metrics. The resulting model’s performance for each mass balance
-        component is evaluated using the defined metrics to identify any significant patterns. The best
-        performing model(s), individually or in an ensemble, can be coupled with a GCM to make future
-        predictions. Data Sources: Mass balance [NVE] & ERA5 Reanalysis [ECMWF]</em></p>
-    </div>
-    </section>
-
-    <!-- === RESULTS === -->
-    <section>
-      <div class="card">
-        <h2>Results & Findings:</h2>
-        <p> Part A: </p>
+      <div class="aim-box" style="background:rgba(26,58,82,0.03)">
+        <p class="aim-box-label">Study Period</p>
         <ul>
-          <li>Identified a major regime shift around 2000 for most glaciers.</li>
-          <li>Post-2000 shift in regime: from winter (bw) → summer (bs) dominated control.</li>
-          <li>Shift from winter precipitation (NAO) → temperature-dominant controls on glacier mass balance.</li>
-          <li>Spatial gradient: maritime glaciers (↑ precipitation sensitive) & continental glaciers (↑ temperature sensitive). </li>
-
+          <li>Mass-balance observations spanning 1950–2023 from 11 Norwegian glaciers.</li>
+          <li>ERA5 reanalysis, CMIP6 projections & NVE observational data.</li>
         </ul>
-
-        <h3 style="margin-top: 16px; color: #ca0020;"> Weaker NAO (↓ P(acc)) + higher T(abl) → MOST NEGATIVE BALANCE ON RECORD POST-2000! </h3>
-
-        <p> Part B: </p>
-        <ul>
-          <li>Model type: Linear (ARD, RidgeCV, BYR) ≥ non-linear models (Bag, RF, XGBoost). </li>
-          <li>Dataset size: More complete records pre-2000 → better predictive skill. </li>
-          <li>Spatial gradient: maritime glaciers (↑ performance) & continental glaciers (↓ performance). </li>
-        </ul>
-
-        <h3 style="margin-top: 16px; color: #ca0020;"> Incorporate proxy data + robust dataset → Improved model performance </h3>
-
       </div>
-    </section>
-
-    <section>
-    <div class="card">
-        <h2>Figure: Scatterplot displaying the Regime Shift in Glaciers</h2>
-        <img src="Images/Scatter_Shift_Comparison.png" class="img-card">
-        <p><em> (a) Scatterplots displaying the Pearson correlation of Ba with Bw (pre-2000) & with Bs (post-
-        2000). (b) Scatterplot displaying the correlation of Ba with Bs & Bs (post-2000). The plot outlines the
-        seasonal shift in the mass balance control. A general shift from a Bw dominated mass balance regime
-        to a Bs dominated regime is observed for 9 out of 11 glaciers post 2000. Ba of some glaciers continues
-        to be controlled by Bw post-2000.</em></p>
+      <div class="hypothesis-box">
+        <p class="aim-box-label">Hypothesis</p>
+        <p class="hypothesis-text">"The turn of the century marks the transition to a new glacier regime, characterised by a change in the climatic controls on annual mass balances."</p>
+      </div>
     </div>
-    </section>
+  </div>
 
-    <!-- === DOWNLOADS === -->
-    <section>
-      <div class="card">
-        <h2>Downloads</h2>
-          <a class="btn" href="/webpage/Files/Thesis_final_improved.pdf" target="_blank" rel="noreferrer">📄 Thesis PDF</a>
+  <!-- FIGURE 1 -->
+  <div class="thesis-section reveal">
+    <div class="figure-block">
+      <p class="figure-label">Figure 01 — Mass Balance Time Series</p>
+      <img src="https://danish1830.github.io/Images/Cumulative_Ba_Time_Series.png" alt="Cumulative mass balance time series for Norwegian glaciers" loading="lazy">
+      <p class="figure-caption">Cumulative Bₐ (m w.e.) for 11 Norwegian glaciers from 1950 to 2020. The dashed vertical line at 2000 indicates a marked acceleration in cumulative mass loss for most glaciers after 2000, signalling a transition toward increasingly negative mass balance regimes in the 21st century.</p>
+    </div>
+  </div>
 
-          <a class="btn ghost" href="/webpage/Files/Danish_Presentation.pdf" target="_blank" rel="noreferrer">🖼️ Defence Slides</a>
-
-          <a class="btn" href="https://www.youtube.com/watch?v=1q1zzwHvEb4" target="_blank" rel="noreferrer">🌐 Presentation Recording</a>
+  <!-- METHODS -->
+  <div class="thesis-section reveal">
+    <div class="ts-header"><span class="ts-num">02</span><h2 class="ts-title">Methods</h2></div>
+    <div class="methods-grid">
+      <div class="method-part">
+        <p class="method-part-label">Part A</p>
+        <h4>Regime Detection</h4>
+        <p class="method-intro">Data sources: ERA5 reanalysis (ECMWF), CMIP6 projections, and glacier mass-balance observations (NVE).</p>
+        <ul>
+          <li>Exploratory data analysis of glacier mass-balance time series (1950–2023).</li>
+          <li>Empirical Orthogonal Function (EOF) analysis to identify dominant modes of variability (NAO, EA, SCAN).</li>
+          <li>Detection of regime shifts using correlation testing and comparing pre-2000 & post-2000 periods.</li>
+        </ul>
       </div>
-    </section>
+      <div class="method-part" style="background:rgba(26,58,82,0.03)">
+        <p class="method-part-label">Part B</p>
+        <h4>Statistical Modelling</h4>
+        <p class="method-intro">Empirical-statistical downscaling framework for mass balance prediction.</p>
+        <ul>
+          <li>Predictor selection followed by training and testing with cross-validation.</li>
+          <li>Empirical-Statistical Downscaling via a <code>pyESD</code> based ML framework with 6 regressors (ARD, RidgeCV, RandomForest, Bagging, Stacking) & 3 selectors (Recursive, Tree-Based, Sequential).</li>
+          <li>Model evaluation using cross-validation and performance metrics (RMSE, R²).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  </main>
+  <!-- FIGURE 2 -->
+  <div class="thesis-section reveal">
+    <div class="figure-block">
+      <p class="figure-label">Figure 02 — Modelling Routine Schematic</p>
+      <img src="https://danish1830.github.io/Images/modelling_routine_schematic.png" alt="Schematic of modelling routine" loading="lazy">
+      <p class="figure-caption">Predictors constructed from ERA5 datasets generate empirical-statistical models and their metrics. The best-performing models, individually or as an ensemble, can be coupled with a GCM to produce future projections. Data sources: Mass balance [NVE] & ERA5 Reanalysis [ECMWF].</p>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="thesis-section reveal">
+    <div class="ts-header"><span class="ts-num">03</span><h2 class="ts-title">Results & Findings</h2></div>
+    <div class="results-grid">
+      <div class="result-part highlight">
+        <p class="result-part-label">Part A · Regime Detection</p>
+        <h4>Key Findings</h4>
+        <ul>
+          <li>Major regime shift identified around 2000 for most glaciers.</li>
+          <li>Post-2000: shift from winter (Bw) → summer (Bs) dominated control.</li>
+          <li>Shift from winter precipitation (NAO) → temperature-dominant controls.</li>
+          <li>Maritime glaciers: more precipitation sensitive. Continental glaciers: more temperature sensitive.</li>
+        </ul>
+        <div class="finding-callout">Weaker NAO (↓ P<sub>acc</sub>) + higher T<sub>abl</sub> → Most negative balance on record post-2000.</div>
+      </div>
+      <div class="result-part">
+        <p class="result-part-label">Part B · Statistical Modelling</p>
+        <h4>Model Performance</h4>
+        <ul>
+          <li>Linear models (ARD, RidgeCV, BYR) performed ≥ non-linear models (Bag, RF, XGBoost).</li>
+          <li>More complete records pre-2000 → better predictive skill.</li>
+          <li>Maritime glaciers: higher performance. Continental glaciers: lower performance.</li>
+        </ul>
+        <div class="finding-callout">Incorporating proxy data + robust dataset → improved model performance.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIGURE 3 -->
+  <div class="thesis-section reveal">
+    <div class="figure-block">
+      <p class="figure-label">Figure 03 — Regime Shift Scatter Comparison</p>
+      <img src="https://danish1830.github.io/Images/Scatter_Shift_Comparison.png" alt="Scatterplot displaying regime shift in glacier mass balance controls" loading="lazy">
+      <p class="figure-caption">(a) Scatterplots of Bₐ correlated with Bw (pre-2000) and Bs (post-2000). (b) Correlation of Bₐ with Bs post-2000. A general shift from winter-dominated to summer-dominated mass balance control is observed in 9 of 11 glaciers post-2000.</p>
+    </div>
+  </div>
+
+  <!-- DOWNLOADS -->
+  <div class="thesis-section reveal">
+    <div class="ts-header"><span class="ts-num">04</span><h2 class="ts-title">Downloads</h2></div>
+    <div class="download-grid">
+      <a href="https://danish1830.github.io/webpage/Files/Thesis_final_improved.pdf" target="_blank" class="dl-item">
+        <span class="dl-icon">📄</span>
+        <span class="dl-label">Full Manuscript</span>
+        <span class="dl-title">Thesis PDF</span>
+        <span class="dl-arrow">↓ Download</span>
+      </a>
+      <a href="https://danish1830.github.io/webpage/Files/Danish_Presentation.pdf" target="_blank" class="dl-item">
+        <span class="dl-icon">🖼️</span>
+        <span class="dl-label">20 min Defence</span>
+        <span class="dl-title">Defence Slides</span>
+        <span class="dl-arrow">↓ Download</span>
+      </a>
+      <a href="https://www.youtube.com/watch?v=1q1zzwHvEb4" target="_blank" class="dl-item">
+        <span class="dl-icon">▶</span>
+        <span class="dl-label">YouTube</span>
+        <span class="dl-title">Presentation Recording</span>
+        <span class="dl-arrow">↗ Watch</span>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>© 2025 Syed Danish Ali</p>
+  <a href="index.html">← Home</a>
+  <a href="https://danish1830.github.io/Files/Danish_CV_PhD.pdf" target="_blank">↓ Download CV</a>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.width='16px';cursor.style.height='16px';ring.style.width='52px';ring.style.height='52px';});
+    el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='36px';ring.style.height='36px';});
+  });
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);obs.unobserve(e.target);}});},{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

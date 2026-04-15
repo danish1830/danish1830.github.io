@@ -1,109 +1,258 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projects — Syed Danish Ali</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Syed Danish Ali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f0ece3;
+    --ocean: #1a3a52;
+    --glacier: #7ab8cc;
+    --warm: #c8773a;
+    --muted: #7a7468;
+    --line: rgba(13,13,13,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Cormorant Garamond', Georgia, serif; overflow-x: hidden; cursor: none; }
 
-  <!-- Fonts & shared styles -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--warm); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--warm); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: 0.6; transition: width 0.2s, height 0.2s; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; border-bottom: 1px solid var(--line); background: rgba(240,236,227,0.88); backdrop-filter: blur(12px); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.2em; color: var(--ocean); text-decoration: none; }
+  .nav-back { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--ocean); }
+  .nav-cv a { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ocean); text-decoration: none; border: 1px solid var(--ocean); padding: 0.45rem 1rem; transition: background 0.25s, color 0.25s; }
+  .nav-cv a:hover { background: var(--ocean); color: var(--paper); }
+
+  /* PAGE HERO */
+  .page-hero { min-height: 38vh; background: var(--ink); display: flex; align-items: flex-end; padding: 7rem 4rem 4rem; position: relative; overflow: hidden; }
+  .page-hero-bg { position: absolute; inset: 0; opacity: 0.06; background-image: linear-gradient(rgba(200,119,58,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(200,119,58,0.5) 1px, transparent 1px); background-size: 60px 60px; }
+  .page-hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .page-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--warm); margin-bottom: 1rem; }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,6vw,5.5rem); letter-spacing: 0.06em; color: var(--paper); line-height: 1; }
+  .page-sub { font-size: 1.2rem; font-style: italic; font-weight: 300; color: rgba(240,236,227,0.5); margin-top: 1rem; line-height: 1.6; max-width: 50ch; }
+
+  /* CONTENT */
+  .content-wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; }
+
+  /* PROJECT CARD */
+  .project-entry { display: grid; grid-template-columns: 80px 1fr; gap: 0; border: 1px solid var(--line); margin-bottom: 1px; transition: background 0.25s; position: relative; overflow: hidden; }
+  .project-entry::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--warm); transform: scaleY(0); transition: transform 0.35s; transform-origin: bottom; }
+  .project-entry:hover { background: #fff; }
+  .project-entry:hover::after { transform: scaleY(1); }
+
+  .project-num-col { background: rgba(26,58,82,0.04); border-right: 1px solid var(--line); display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+  .project-num-col span { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(26,58,82,0.25); letter-spacing: 0.05em; }
+
+  .project-body { padding: 2.5rem 2.5rem; }
+  .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .project-title { font-size: 1.5rem; font-weight: 400; color: var(--ocean); line-height: 1.25; }
+  .project-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--warm); background: rgba(200,119,58,0.1); padding: 0.3rem 0.7rem; white-space: nowrap; }
+
+  .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.5rem; }
+  .project-bullets li { font-size: 1.05rem; line-height: 1.7; font-weight: 300; color: var(--muted); padding-left: 1.5rem; position: relative; }
+  .project-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--glacier); }
+
+  .project-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .proj-link { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ocean); text-decoration: none; border: 1px solid var(--line); padding: 0.5rem 1rem; transition: all 0.2s; display: flex; align-items: center; gap: 0.4rem; }
+  .proj-link:hover { border-color: var(--ocean); background: var(--ocean); color: var(--paper); }
+
+  /* section divider */
+  .section-div { display: flex; align-items: baseline; gap: 1.5rem; margin: 4rem 0 2.5rem; }
+  .section-div-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--warm); letter-spacing: 0.2em; }
+  .section-div-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.06em; color: var(--ocean); }
+  .section-div-line { flex: 1; height: 1px; background: var(--line); }
+
+  footer { background: var(--ink); border-top: 1px solid rgba(240,236,227,0.08); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(240,236,227,0.3); text-transform: uppercase; }
+  footer a { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(240,236,227,0.3); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  footer a:hover { color: rgba(240,236,227,0.8); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width:900px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-hero { padding: 7rem 1.5rem 3rem; }
+    .content-wrap { padding: 3rem 1.5rem; }
+    .project-entry { grid-template-columns: 1fr; }
+    .project-num-col { display: none; }
+    .project-header { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
 </head>
-
 <body>
-  <main class="container">
 
-    <section>
-      <a href="index.html" class="btn ghost">← Back to Home</a>
-      <h1 style="color: #2563EB;">Projects</h1>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-      <div class="grid">
+<nav>
+  <a href="index.html" class="nav-logo">SDA</a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+  <div class="nav-cv"><a href="https://danish1830.github.io/Files/Danish_CV_PhD.pdf" target="_blank">↓ Download CV</a></div>
+</nav>
 
-        <article class="col-6 card">
-          <h3>Glacier Mass-balance Modelling </h3>
-          <ul>
-            <li>Perfect‑prognosis based Empirical-Statistical Downscaling to predict mass-balance components using ERA5 predictors.</li>
-            <li>PP-ESD adopted as it is RCM/GCM agnostic.</li>
-            <li>EOF (PCA)- based pattern mining in climate fields to derive teleconnection indices.</li>
-            <li>Feature engineering for ML workflows.</li>
-            <li>Robust cross‑validation & feature selection.</li>
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content">
+    <p class="page-tag">Selected Work</p>
+    <h1 class="page-title">Projects</h1>
+    <p class="page-sub">Research projects spanning cryosphere modelling, numerical methods, remote sensing, and marine biogeochemistry.</p>
+  </div>
+</div>
 
-          </ul>
-          <div class="pill-links">
-    
-          </div>
-        </article>
-        
-        
-        <article class="col-6 card">
-          <h3>Remote Sensing & MHWs</h3>
-          <ul>
-            <li>Exploratory SST retrieval and marine heatwave characterization.</li>
-            <li>Map design and scale‑aware visual summaries.</li>
-          </ul>
+<div class="content-wrap">
 
-          <div class="pill-links">
+  <!-- CLIMATE & CRYOSPHERE -->
+  <div class="section-div reveal">
+    <span class="section-div-num">01</span>
+    <h2 class="section-div-title">Climate & Cryosphere</h2>
+    <div class="section-div-line"></div>
+  </div>
 
-          <a class="btn" href="Files/Projects/Marine_Heatwaves/AdORS_Ali.pdf" target="_blank" rel="noreferrer">📄 Document</a>
-          <a class="btn ghost" href="Files/Projects/Marine_Heatwaves/Personal_MHW_for_an_area_AdORS.html" target="_blank" rel="noreferrer">💻 Code #1</a>
-          <a class="btn" href="Files/Projects/Marine_Heatwaves/Personal_MHW_for_TimeSeries_AdORS.html" target="_blank" rel="noreferrer">💻 Code #2</a>
-          </div>
+  <div class="project-entry reveal">
+    <div class="project-num-col"><span>01</span></div>
+    <div class="project-body">
+      <div class="project-header">
+        <h3 class="project-title">Glacier Mass-balance Modelling</h3>
+        <span class="project-tag">Python · ERA5 · ML</span>
+      </div>
+      <ul class="project-bullets">
+        <li>Perfect-prognosis based Empirical-Statistical Downscaling to predict mass-balance components using ERA5 predictors.</li>
+        <li>PP-ESD adopted as it is RCM/GCM agnostic — flexible for future projection workflows.</li>
+        <li>EOF (PCA)-based pattern mining in climate fields to derive teleconnection indices (NAO, EA, SCAN).</li>
+        <li>Feature engineering for ML workflows, robust cross-validation & systematic feature selection.</li>
+      </ul>
+      <div class="project-links">
+        <!-- Add links when available -->
+      </div>
+    </div>
+  </div>
 
-        </article>
-        
-        <article class="col-6 card">
-          <h3>2D Diffusion Model</h3>
-          <ul>
-            <li>Simulation of pollution patch using Finite Difference Method (FDM).</li>
-            <li>Numerical modelling implementing explicit and implicit schemes using Julia.</li>
-            <li>Neumann boundary conditions & optimized CFL constraints for stability.</li>
-          </ul>
-          <div class="pill-links">
-            
-          <a class="btn" href="Files/Projects/Numerical_Modelling/2D-Diffusion_Numerical methods in geophysics.pdf" target="_blank" rel="noreferrer">📄 Document</a>
-          <a class="btn ghost" href="Files/Projects/Numerical_Modelling/NumericalModelling.pdf" target="_blank" rel="noreferrer">🖼️ Slides</a>
-          <a class="btn" href="Files/Projects/Numerical_Modelling/exam code.html" target="_blank" rel="noreferrer">💻 Code</a>
-          </div>
+  <!-- NUMERICAL & PHYSICAL -->
+  <div class="section-div reveal">
+    <span class="section-div-num">02</span>
+    <h2 class="section-div-title">Numerical & Physical Modelling</h2>
+    <div class="section-div-line"></div>
+  </div>
 
-        </article>
+  <div class="project-entry reveal">
+    <div class="project-num-col"><span>02</span></div>
+    <div class="project-body">
+      <div class="project-header">
+        <h3 class="project-title">2D Diffusion Model</h3>
+        <span class="project-tag">Julia · FDM · Numerical Methods</span>
+      </div>
+      <ul class="project-bullets">
+        <li>Simulation of a pollution patch dispersal in marine environments using the Finite Difference Method (FDM).</li>
+        <li>Implemented both explicit and implicit numerical schemes in Julia.</li>
+        <li>Applied Neumann boundary conditions & optimised CFL constraints for numerical stability.</li>
+      </ul>
+      <div class="project-links">
+        <a href="https://danish1830.github.io/Files/Projects/Numerical_Modelling/2D-Diffusion_Numerical methods in geophysics.pdf" target="_blank" class="proj-link">📄 Document</a>
+        <a href="https://danish1830.github.io/Files/Projects/Numerical_Modelling/NumericalModelling.pdf" target="_blank" class="proj-link">🖼️ Slides</a>
+        <a href="https://danish1830.github.io/Files/Projects/Numerical_Modelling/exam code.html" target="_blank" class="proj-link">💻 Code</a>
+      </div>
+    </div>
+  </div>
 
+  <!-- REMOTE SENSING & OCEAN -->
+  <div class="section-div reveal">
+    <span class="section-div-num">03</span>
+    <h2 class="section-div-title">Remote Sensing & Oceanography</h2>
+    <div class="section-div-line"></div>
+  </div>
 
+  <div class="project-entry reveal">
+    <div class="project-num-col"><span>03</span></div>
+    <div class="project-body">
+      <div class="project-header">
+        <h3 class="project-title">Remote Sensing & Marine Heatwaves</h3>
+        <span class="project-tag">Python · SST · Remote Sensing</span>
+      </div>
+      <ul class="project-bullets">
+        <li>Exploratory sea surface temperature retrieval and marine heatwave characterisation via satellite remote sensing.</li>
+        <li>Map design and scale-aware visual summaries of SST anomalies.</li>
+      </ul>
+      <div class="project-links">
+        <a href="https://danish1830.github.io/Files/Projects/Marine_Heatwaves/AdORS_Ali.pdf" target="_blank" class="proj-link">📄 Document</a>
+        <a href="https://danish1830.github.io/Files/Projects/Marine_Heatwaves/Personal_MHW_for_an_area_AdORS.html" target="_blank" class="proj-link">💻 Code #1</a>
+        <a href="https://danish1830.github.io/Files/Projects/Marine_Heatwaves/Personal_MHW_for_TimeSeries_AdORS.html" target="_blank" class="proj-link">💻 Code #2</a>
+      </div>
+    </div>
+  </div>
 
-        <article class="col-6 card">
-                  <h3>Sertraline Toxicity Bioassay</h3>
-                  <ul>
-                    <li>Designed an acute toxicity bioassay as part of a team to assess the toxicity of the anti-depressant Sertraline (SRT) on marine copepods <em>(Acartia tonsa)</em> over 24h and 48h exposure.</li>
-                    <li>Conducted several statistical analyses (ANOVA, Probit analysis) & time-dependent mortality tests using R and IBM SPSS.</li>
-                  </ul>
-                  <div class="pill-links">
+  <!-- MARINE BIOLOGY & BIOGEOCHEMISTRY -->
+  <div class="section-div reveal">
+    <span class="section-div-num">04</span>
+    <h2 class="section-div-title">Marine Biology & Biogeochemistry</h2>
+    <div class="section-div-line"></div>
+  </div>
 
-                  <a class="btn" href="Files/Projects/EMRAAS/Danish_EMRAAS Bioassay Report.pdf" target="_blank" rel="noreferrer">📄 Document</a>
-                  <a class="btn ghost" href="Files/Projects/EMRAAS/Danish, Ranoco, Zakariya EMRAAS Poster Final.pdf" target="_blank" rel="noreferrer">🖼️ Poster</a>
+  <div class="project-entry reveal">
+    <div class="project-num-col"><span>04</span></div>
+    <div class="project-body">
+      <div class="project-header">
+        <h3 class="project-title">Sertraline Toxicity Bioassay</h3>
+        <span class="project-tag">R · SPSS · Ecotoxicology</span>
+      </div>
+      <ul class="project-bullets">
+        <li>Designed an acute toxicity bioassay as part of a team to assess the toxicity of the anti-depressant Sertraline (SRT) on marine copepods <em>(Acartia tonsa)</em> over 24h and 48h exposure.</li>
+        <li>Conducted ANOVA, Probit analysis & time-dependent mortality tests using R and IBM SPSS.</li>
+      </ul>
+      <div class="project-links">
+        <a href="https://danish1830.github.io/Files/Projects/EMRAAS/Danish_EMRAAS Bioassay Report.pdf" target="_blank" class="proj-link">📄 Document</a>
+        <a href="https://danish1830.github.io/Files/Projects/EMRAAS/Danish, Ranoco, Zakariya EMRAAS Poster Final.pdf" target="_blank" class="proj-link">🖼️ Poster</a>
+      </div>
+    </div>
+  </div>
 
-                  </div>
+  <div class="project-entry reveal">
+    <div class="project-num-col"><span>05</span></div>
+    <div class="project-body">
+      <div class="project-header">
+        <h3 class="project-title">NPZDO₂ Biogeochemical Model</h3>
+        <span class="project-tag">R · Biogeochemistry · Modelling</span>
+      </div>
+      <ul class="project-bullets">
+        <li>Extended NPZDO₂ biogeochemical model simulating nutrient dynamics in aquatic systems.</li>
+        <li>Framework incorporates oxygen dynamics for eutrophication management, nutrient speciation & sediment interactions.</li>
+        <li>Implemented in R with sensitivity analyses to assess the impact of key parameters on model output.</li>
+      </ul>
+      <div class="project-links">
+        <a href="https://danish1830.github.io/Files/Projects/Eco_Modelling/Project2025_Retro Submission.Rmd" target="_blank" class="proj-link">💻 Code (Rmd)</a>
+      </div>
+    </div>
+  </div>
 
-                </article>
+</div><!-- /content-wrap -->
 
+<footer>
+  <p>© 2025 Syed Danish Ali</p>
+  <a href="index.html">← Home</a>
+  <a href="https://danish1830.github.io/Files/Danish_CV_PhD.pdf" target="_blank">↓ Download CV</a>
+</footer>
 
-                <article class="col-6 card">
-                  <h3>NPZDO₂ Biogeochemical Model</h3>
-                  <ul>
-                    <li>Developed a extended NPZDO₂ biogeochemical model to simulate the dynamics of nutrients in aquatic systems.</li>
-                    <li>The framework model has oxygen dynamics for eutrophication management, nutrient speciation, & sediment interactions.</li>
-                    <li>Implemented the model in R and conducted sensitivity analyses to assess the impact of key parameters on model output.</li>
-                  </ul>
-
-                  <div class="pill-links">
-
-                  <a class="btn" href="Files/Projects/Eco_Modelling/Project2025_Retro Submission.Rmd" target="_blank" rel="noreferrer">💻 Code</a>
-                  
-                  </div>
-
-                </article>
-      </section>
-
-  </main>
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.width='16px';cursor.style.height='16px';ring.style.width='52px';ring.style.height='52px';});
+    el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='36px';ring.style.height='36px';});
+  });
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);obs.unobserve(e.target);}});},{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

@@ -41,7 +41,7 @@
 
   /* HERO */
   #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr; border-bottom: 1px solid var(--line); overflow: hidden; }
-  .hero-left { padding: 9rem 4rem 3rem 4rem; border-right: none; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+  .hero-identity { display: flex; align-items: flex-end; justify-content: center; gap: 2.8rem; margin-bottom: 0; opacity: 0; animation: fadeUp 0.9s 0.3s forwards; }
   
   /* Photo + name identity row */
   .hero-identity { display: flex; align-items: flex-end; gap: 2.8rem; margin-bottom: 0; opacity: 0; animation: fadeUp 0.9s 0.3s forwards; }
@@ -65,11 +65,11 @@
 
   .hero-name-block { padding-bottom: 0.3rem; }
   .hero-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.7rem; }
-  .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.8rem, 6vw, 6.5rem); line-height: 0.92; letter-spacing: 0.03em; color: var(--ocean); }
+  .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 7.5vw, 8rem); line-height: 0.92; letter-spacing: 0.03em; color: var(--ocean); }
   .hero-name span { color: var(--warm); }
 
-  .hero-sub { font-size: 1.25rem; font-style: italic; font-weight: 300; color: var(--muted); margin-top: 2rem; line-height: 1.65; opacity: 0; animation: fadeUp 0.9s 0.55s forwards; max-width: 38ch; }
-  .hero-socials { display: flex; gap: 1.5rem; margin-top: 2.5rem; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; flex-wrap: wrap; }
+  .hero-sub { font-size: 1.35rem; font-style: italic; font-weight: 300; color: var(--muted); margin-top: 2rem; line-height: 1.65; opacity: 0; animation: fadeUp 0.9s 0.55s forwards; max-width: 42ch; margin-left: auto; margin-right: auto; }
+  .hero-socials { display: flex; gap: 1.5rem; margin-top: 2.5rem; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; flex-wrap: wrap; justify-content: center; }
   .hero-socials a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
   .hero-socials a:hover { color: var(--warm); }
 
@@ -199,12 +199,14 @@
       gap: 1.5rem;
     }
 
-    .hero-photo {
-      width: 110px;
-      height: auto;
-      aspect-ratio: 2/3;
-      align-self: stretch;
-    }
+    .hero-photo { width: 240px; 
+      height: auto; aspect-ratio: 2/3;
+      flex-shrink: 0; 
+      border: 2px solid rgba(26,58,82,0.2); 
+      background: rgba(26,58,82,0.06); 
+      position: relative; 
+      overflow: hidden; 
+      align-self: stretch; }
 
     /* Show waves panel below, compact */
     .hero-right {

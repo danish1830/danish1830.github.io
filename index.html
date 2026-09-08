@@ -40,9 +40,9 @@
   .nav-cv a:hover { background: var(--ocean); color: var(--paper); }
 
   /* HERO */
-  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); overflow: hidden; }
-  .hero-left { padding: 11rem 4rem 5rem 4rem; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
-
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr; border-bottom: 1px solid var(--line); overflow: hidden; }
+  .hero-left { padding: 9rem 4rem 3rem 4rem; border-right: none; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+  
   /* Photo + name identity row */
   .hero-identity { display: flex; align-items: flex-end; gap: 2.8rem; margin-bottom: 0; opacity: 0; animation: fadeUp 0.9s 0.3s forwards; }
 
@@ -73,13 +73,11 @@
   .hero-socials a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
   .hero-socials a:hover { color: var(--warm); }
 
-  .hero-right { position: relative; background: var(--ocean); display: flex; align-items: flex-end; justify-content: flex-end; padding: 3rem; overflow: hidden; }
-  
+  .hero-right { position: relative; background: var(--ocean); display: flex; align-items: center; justify-content: center; padding: 3rem 4rem; overflow: hidden; min-height: 300px; }  
   .ocean-bg { position: absolute; inset: 0; overflow: hidden; }
   .ocean-bg svg { width: 100%; height: 100%; }
-  .hero-stat-block { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 2rem; }
-  .hero-stat { text-align: right; opacity: 0; animation: fadeLeft 0.9s forwards; }
-  .hero-stat:nth-child(1) { animation-delay: 0.5s; }
+  .hero-stat-block { position: relative; z-index: 2; display: flex; flex-direction: row; gap: 4rem; width: 100%; justify-content: space-around; }  
+  .hero-stat { text-align: center; opacity: 0; animation: fadeUp 0.9s forwards; }  .hero-stat:nth-child(1) { animation-delay: 0.5s; }
   .hero-stat:nth-child(2) { animation-delay: 0.7s; }
   .hero-stat:nth-child(3) { animation-delay: 0.9s; }
   .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--glacier); line-height: 1; }

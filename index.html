@@ -69,8 +69,7 @@
   .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 7.5vw, 8rem); line-height: 0.92; letter-spacing: 0.03em; color: var(--ocean); }
   .hero-name span { color: var(--warm); }
 
-  .hero-sub { font-size: 1.35rem; font-style: italic; font-weight: 300; color: var(--muted); margin-top: 2rem; line-height: 1.65; opacity: 0; animation: fadeUp 0.9s 0.55s forwards; max-width: 42ch; margin-left: auto; margin-right: auto; }
-  .hero-socials { display: flex; gap: 1.5rem; margin-top: 2.5rem; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; flex-wrap: wrap; justify-content: center; }
+  .hero-sub { font-size: 1.35rem; font-style: italic; font-weight: 300; color: var(--muted); margin-top: 1.2rem; line-height: 1.65; opacity: 0; animation: fadeUp 0.9s 0.55s forwards; max-width: 42ch; margin-left: auto; margin-right: auto; }  .hero-socials { display: flex; gap: 1.5rem; margin-top: 2.5rem; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; flex-wrap: wrap; justify-content: center; }
   .hero-socials a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
   .hero-socials a:hover { color: var(--warm); }
 
@@ -188,26 +187,44 @@
     #hero { grid-template-columns: 1fr; min-height: auto; }
 
     .hero-left {
-      padding: 7rem 2rem 3rem;
+      padding: 7rem 1.5rem 3rem;
       border-right: none;
       border-bottom: 1px solid var(--line);
+      max-width: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     /* Keep photo small beside name, same as desktop */
     .hero-identity {
       flex-direction: row;
       align-items: flex-end;
-      gap: 1.5rem;
+      justify-content: center;
+      gap: 1.2rem;
     }
 
-    .hero-photo { width: 240px; 
-      height: auto; aspect-ratio: 2/3;
-      flex-shrink: 0; 
-      border: 2px solid rgba(26,58,82,0.2); 
-      background: rgba(26,58,82,0.06); 
-      position: relative; 
-      overflow: hidden; 
-      align-self: stretch; }
+    .hero-photo {
+      width: 90px;
+      height: auto;
+      aspect-ratio: 2/3;
+      flex-shrink: 0;
+      border: 2px solid rgba(26,58,82,0.2);
+      background: rgba(26,58,82,0.06);
+      position: relative;
+      overflow: hidden;
+      align-self: stretch;
+    }
+
+    .hero-name {
+      font-size: clamp(2.6rem, 11vw, 4rem);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      max-width: 30ch;
+      margin-top: 1.5rem;
+    }
 
     /* Show waves panel below, compact */
     .hero-right {
@@ -228,7 +245,6 @@
 
     .hero-stat { text-align: center; }
     .stat-num { font-size: 2.4rem; }
-    .stat-label { font-size: 0.55rem; }
     .stat-label { font-size: 0.55rem; letter-spacing: 0.1em; word-break: break-word; max-width: 80px; text-align: center; }
 
     .about-body, .thesis-body, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -236,7 +252,7 @@
     .projects-grid { grid-template-columns: 1fr; }
     .section-inner { padding: 4rem 1.5rem; }
     .pub-coming-soon { flex-direction: column; gap: 1.5rem; }
-  }
+}
 
 </style>
 </head>

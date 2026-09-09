@@ -85,6 +85,8 @@
   .stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,236,227,0.5); margin-top: 0.3rem; }
   .grid-lines { position: absolute; inset: 0; opacity: 0.08; background-image: linear-gradient(rgba(122,184,204,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(122,184,204,0.5) 1px, transparent 1px); background-size: 60px 60px; }
 
+  .mobile-break { display: none; }
+
   /* SECTIONS */
   section { border-bottom: 1px solid var(--line); }
   .section-inner { max-width: 1200px; margin: 0 auto; padding: 6rem 4rem; }
@@ -262,6 +264,32 @@
     .projects-grid { grid-template-columns: 1fr; }
     .section-inner { padding: 4rem 1.5rem; }
     .pub-coming-soon { flex-direction: column; gap: 1.5rem; }
+
+        .mobile-break {
+      display: block;
+    }
+
+    .hero-name {
+      white-space: normal;
+      line-height: 0.95;
+    }
+
+    .hero-left {
+      padding: 5.5rem 1.5rem 2rem;
+    }
+
+    .hero-sub {
+      margin-top: 1rem;
+    }
+
+    .hero-socials {
+      margin-top: 1.2rem;
+    }
+
+    .hero-right {
+      min-height: 170px;
+      padding: 2rem 1.5rem;
+    }
 }
 
 </style>
@@ -300,7 +328,7 @@
       <div class="hero-name-block">
         <p class="hero-label">Climate & Ocean Scientist</p>
         
-        <h1 class="hero-name">Syed <span>Danish</span> Ali</h1>
+        <h1 class="hero-name">Syed<br class="mobile-break"> <span>Danish</span><br class="mobile-break"> Ali</h1>
 
         <p class="hero-role">Pre-docotral Researcher · National Taiwan University</p>
         

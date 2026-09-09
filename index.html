@@ -189,8 +189,12 @@
 
     #hero { grid-template-columns: 1fr; min-height: auto; }
 
+    .mobile-break {
+      display: block;
+    }
+
     .hero-left {
-      padding: 7rem 1.5rem 3rem;
+      padding: 4.5rem 1.5rem 1.5rem;
       border-right: none;
       border-bottom: 1px solid var(--line);
       max-width: none;
@@ -207,7 +211,7 @@
     }
 
     .hero-photo {
-      width: 90px !important;
+      width: 78px !important;
       height: auto;
       aspect-ratio: 2/3;
       flex-shrink: 0;
@@ -219,31 +223,37 @@
     }
 
     .hero-label {
-      font-size: 0.62rem;
+      font-size: 0.55rem;
       letter-spacing: 0.16em;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
     }
 
     .hero-name {
-      font-size: clamp(2.6rem, 11vw, 4rem);
+      font-size: clamp(2.1rem, 9vw, 3.2rem);
+      white-space: normal;
+      line-height: 0.92;
     }
 
     .hero-role {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       letter-spacing: 0.08em;
-      margin-top: 0.6rem;
+      margin-top: 0.4rem;
     }
 
     .hero-sub {
-      font-size: 1.05rem;
-      max-width: 30ch;
-      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      max-width: 28ch;
+      margin-top: 0.8rem;
+    }
+
+    .hero-socials {
+      margin-top: 1rem;
     }
 
     .hero-right {
       display: flex;
-      min-height: 200px;
-      padding: 2.5rem 2rem;
+      min-height: 150px;
+      padding: 1.6rem 1.5rem;
       align-items: center;
       justify-content: center;
     }
@@ -256,7 +266,7 @@
     }
 
     .hero-stat { text-align: center; }
-    .stat-num { font-size: 2.4rem; }
+    .stat-num { font-size: 2rem; }
     .stat-label { font-size: 0.55rem; letter-spacing: 0.1em; word-break: break-word; max-width: 80px; text-align: center; }
 
     .about-body, .thesis-body, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -264,32 +274,6 @@
     .projects-grid { grid-template-columns: 1fr; }
     .section-inner { padding: 4rem 1.5rem; }
     .pub-coming-soon { flex-direction: column; gap: 1.5rem; }
-
-        .mobile-break {
-      display: block;
-    }
-
-    .hero-name {
-      white-space: normal;
-      line-height: 0.95;
-    }
-
-    .hero-left {
-      padding: 5.5rem 1.5rem 2rem;
-    }
-
-    .hero-sub {
-      margin-top: 1rem;
-    }
-
-    .hero-socials {
-      margin-top: 1.2rem;
-    }
-
-    .hero-right {
-      min-height: 170px;
-      padding: 2rem 1.5rem;
-    }
 }
 
 </style>

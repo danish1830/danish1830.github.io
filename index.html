@@ -66,11 +66,12 @@
 
   .hero-name-block { padding-bottom: 0.3rem; margin-bottom: 0.5rem; }
   .hero-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
-  .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 7.5vw, 8rem); line-height: 0.88; letter-spacing: 0.02em; color: var(--ocean); }
+  .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 5.5vw, 5.5rem); line-height: 1; letter-spacing: 0.02em; color: var(--ocean); white-space: nowrap; }
 
-  .hero-sub { font-size: 1.35rem; font-style: italic; font-weight: 300; color: var(--muted); margin-top: 0.8rem; line-height: 1.55; opacity: 0; animation: fadeUp 0.9s 0.55s forwards; max-width: 50ch; margin-left: auto; margin-right: auto; }  
-    
-  .hero-socials { display: flex; gap: 1.5rem; margin-top: 1.5rem; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; flex-wrap: wrap; justify-content: center; }  
+  .hero-sub { font-size: 1.35rem; font-style: italic; font-weight: 300; color: var(--muted); margin-top: 1.4rem; line-height: 1.55; opacity: 0; animation: fadeUp 0.9s 0.55s forwards; max-width: 50ch; margin-left: auto; margin-right: auto; }    
+  .hero-socials { display: flex; gap: 1.5rem; margin-top: 2rem; opacity: 0; animation: fadeUp 0.9s 0.75s forwards; flex-wrap: wrap; justify-content: center; }  
+
+  .hero-socials a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
   .hero-socials a:hover { color: var(--warm); }
   .hero-right { position: relative; background: var(--ocean); display: flex; align-items: center; justify-content: center; padding: 2.5rem 4rem; overflow: hidden; min-height: 240px; }
 

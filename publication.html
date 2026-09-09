@@ -76,6 +76,12 @@
   .abstract-box p { font-size: 1.3rem; line-height: 1.85; font-weight: 300; text-align: justify; }
   .abstract-placeholder { font-style: italic; color: var(--muted); }
 
+  .abstract-findings { margin-top: 2rem; padding: 2.5rem; border: 1px solid var(--line); background: rgba(26,58,82,0.03); }
+  .abstract-findings-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem; }
+  .abstract-findings ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .abstract-findings li { font-size: 1.05rem; line-height: 1.7; font-weight: 300; padding-left: 1.5rem; position: relative; }
+  .abstract-findings li::before { content: '–'; position: absolute; left: 0; color: var(--glacier); }
+
   /* Figure block */
   .figure-block { margin: 3rem 0; }
   .figure-block img { width: 100%; display: block; filter: sepia(0.1) contrast(1.05); border: 1px solid var(--line); }
@@ -152,18 +158,30 @@
     <div class="meta-item"><p class="meta-label">Authors</p><p class="meta-val">Ali S.D. & Mutz S.</p></div>
   </div>
 
-  <!-- ABSTRACT -->
-  <div class="thesis-section reveal">
-    <div class="ts-header"><span class="ts-num">01</span><h2 class="ts-title">Abstract</h2></div>
-    <div class="abstract-box">
-      <!--
-        ABSTRACT INSTRUCTIONS:
-        Replace the paragraph below with the paper's abstract once finalised.
-      -->
-      <p class="abstract-placeholder">Abstract to be added once the manuscript is finalised. This section will summarise the paper's motivation, methods, key results, and implications for glacier mass-balance modelling.</p>
-    </div>
-  </div>
+    <!-- ABSTRACT -->
+    <div class="thesis-section reveal">
+      <div class="ts-header"><span class="ts-num">01</span><h2 class="ts-title">Abstract</h2></div>
+      <div class="abstract-box">
+        <p>Norwegian glaciers impact the country's electricity generation, tourism industry, hydrology, natural ecosystems, and geo-hazards. Since ~2000 CE, they have undergone accelerated mass loss. This study explores the application of machine learning techniques in a classical empirical-statistical downscaling (ESD) framework to model glacier mass changes, while also considering possible glacier regime shifts in 2000 CE and its implication on such modelling approaches.</p>
 
+        <p style="margin-top:1.5rem;">The mass balance records provided by the Norwegian Energy Directorate (NVE) are used to construct predictand time series, while climatological predictors are constructed from the ERA5 reanalyses by the European Centre for Medium Range Weather Forecasts (ECMWF). First, we quantify empirical relationships between climatological predictors and the mass balance of 11 Norwegian glaciers (located 57–72°N) with correlation analyses, using the DJF and MJJAS month composites for the accumulation and ablation season, respectively. The results inform our choice of climatological predictors for the ESD modelling approach. The models are trained in a cross-validation setting with six regressors and three feature-selection methods. In a final step, they are coupled to climate simulations from the sixth phase of the Coupled Model Intercomparison Project (CMIP6) for three different scenarios (SSP1-2.6, SSP2-4.5, and SSP5-8.5) to predict glacier mass response in the 21st century.</p>
+
+        <p style="margin-top:1.5rem;">The changing climate–mass balance relationships post-2000 point to a transition of B<sub>a</sub> from winter (accumulation) to summer (ablation) dominated for 9/11 glaciers. The performance of our models indicates the general merits of this approach, but the regime shifts complicate their application and limit the use of predictions generated with them.</p>
+      </div>
+
+      <div class="abstract-findings">
+        <p class="abstract-findings-label">Key Findings</p>
+        <ul>
+          <li>Pre-2000, the North Atlantic Oscillation (NAO), precipitation, and temperature strongly correlate with mass balance, with winter mass balance (B<sub>w</sub>) closely linked to accumulation-season precipitation (P<sub>acc</sub>).</li>
+          <li>Post-2000, for 9/11 glaciers, mass balance shows a stronger relationship to summer temperature (T<sub>abl</sub>) and surface solar radiation (ssrd), and a weaker relationship with B<sub>w</sub>–NAO coupling.</li>
+          <li>Correlation and model performance have a maritime–continental spatial gradient, with coastal glaciers showing a stronger correlation with precipitation and inland glaciers showing a stronger relationship to temperature.</li>
+          <li>Models based on linear regressors (Ridge Regression with Cross Validation, Bayesian Ridge Regression, Automatic Relevance Determination) paired with Recursive or Tree-based selectors consistently outperform non-linear models. The best models achieve glacier-specific R² of up to 0.81 and RMSE as low as 0.30 m w.e.</li>
+          <li>Model performance for mass balance components can be ranked B<sub>w</sub> &gt; B<sub>a</sub> &gt; B<sub>s</sub>, from best to worst.</li>
+          <li>The predictions show Nigardsbreen and Engabreen to sustain mass, Ålfotbreen and Rembesdalskåka to undergo little net change, and the remaining 7 glaciers to experience steep mass loss of up to 60 m w.e. through 2100 CE.</li>
+        </ul>
+      </div>
+    </div>
+    
   <!-- FIGURES -->
   <div class="thesis-section reveal">
     <div class="ts-header"><span class="ts-num">02</span><h2 class="ts-title">Figures</h2></div>
